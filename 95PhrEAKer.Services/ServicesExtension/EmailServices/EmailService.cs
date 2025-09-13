@@ -1,50 +1,55 @@
 ﻿using _95PhrEAKer.Services.IServices.EmailServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using MailKit.Net.Smtp;
-using MimeKit;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using _95PhrEAKer;
-using _95PhrEAKer.Domain.EmailSetting;
-using Resend;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace _95PhrEAKer.Services.ServicesExtension.EmailServices
 {
-    public class ResendSettings
+    public class SendGridSettings
     {
         public string ApiKey { get; set; }
+        public string FromEmail { get; set; }
+        public string FromName { get; set; }
     }
 
     public class EmailService : IEmailService
     {
-        private readonly IResend _resend;
+        private readonly SendGridClient _client;
+        private readonly SendGridSettings _settings;
 
-        public EmailService(IOptions<ResendSettings> settings)
+        public EmailService(IOptions<SendGridSettings> settings)
         {
-            _resend = ResendClient.Create(settings.Value.ApiKey);
+            _settings = settings.Value ?? throw new ArgumentNullException(nameof(settings));
+            if (string.IsNullOrWhiteSpace(_settings.ApiKey))
+                throw new ArgumentException("SendGrid API key is not configured.", nameof(settings));
+
+            _client = new SendGridClient(_settings.ApiKey);
         }
 
         public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
-            var email = new EmailMessage()
-            {
-                From = "onboarding@resend.dev", // or your verified email
-                To = toEmail,
-                Subject = subject,
-                HtmlBody = body
-            };
+            if (string.IsNullOrWhiteSpace(toEmail)) throw new ArgumentException("toEmail is required", nameof(toEmail));
 
-            try
+            var from = new EmailAddress(string.IsNullOrWhiteSpace(_settings.FromEmail) ? "no-reply@example.com" : _settings.FromEmail,
+                                        string.IsNullOrWhiteSpace(_settings.FromName) ? "NoReply" : _settings.FromName);
+
+            var to = new EmailAddress(toEmail);
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent: null, htmlContent: body);
+
+            var response = await _client.SendEmailAsync(msg);
+
+            if (response == null)
             {
-                var response = await _resend.EmailSendAsync(email);
+                throw new Exception("SendGrid: no response received when sending email.");
             }
-            catch (ResendException ex)
+
+            if (!response.IsSuccessStatusCode)
             {
-                // Log the error or rethrow with more context
-                throw new Exception($"Resend API error: {ex.Message}", ex);
+                var responseBody = await response.Body.ReadAsStringAsync();
+                throw new Exception($"SendGrid API error: {response.StatusCode} - {responseBody}");
             }
         }
     }
-    }
+}

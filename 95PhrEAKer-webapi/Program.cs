@@ -67,9 +67,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 
-//builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-builder.Services.Configure<ResendSettings>(builder.Configuration.GetSection("ResendSettings"));
-builder.Services.AddSingleton<EmailService>();
+builder.Services.Configure<SendGridSettings>(builder.Configuration.GetSection("ResendSettings"));
+builder.Services.AddSingleton<IEmailService, EmailService>();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddApplicationInsightsTelemetry();
 var app = builder.Build();
