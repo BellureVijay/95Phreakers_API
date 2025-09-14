@@ -27,5 +27,7 @@ namespace _95PhrEAKer.Domain.AuthModal
         [MinLength(10, ErrorMessage = "Number must be at least 10 digits.")]
         public string MobileNumber { get; set; }
 
+        public bool isGoogleUser { get; set; }
+
     }
 }

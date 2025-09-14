@@ -2,6 +2,7 @@
 using _95PhrEAKer.Persistence.context;
 using _95PhrEAKer.Persistence.DbModals;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -27,7 +28,7 @@ namespace _95PhrEAKer_webapi.Controllers
         public IActionResult Authenticate([FromBody] Credentials credential)
         {
             var user = _context.Users.FirstOrDefault(u =>
-                u.Email == credential.Email && u.Password == credential.Password); // Use hashing in production
+                u.Email == credential.Email && u.Password == credential.Password); 
 
             if (user != null)
             {
@@ -78,9 +79,14 @@ namespace _95PhrEAKer_webapi.Controllers
             try
             {
 
-
                 if (_context.Users.Any(x => x.Email == user.Email))
                 {
+                    if (user.isGoogleUser)
+                    {
+                        var password = _context.Users.FirstOrDefault(u =>
+               u.Email == user.Email)?.Password;
+                        return Authenticate(new Credentials { Email = user.Email, Password = password ?? "" });
+                    }
                     return BadRequest(new { error = "Email address already exists." });
                 }
 
@@ -106,8 +112,14 @@ namespace _95PhrEAKer_webapi.Controllers
                 _context.Users.Add(newUser);
                 
                 _context.SaveChanges();
-
-                return Ok($"{user.UserName} registered successfully.");
+                if (user.isGoogleUser)
+                {
+                    return Authenticate(new Credentials { Email = user.Email, Password = user.Password ?? "" });
+                }
+                else
+                {
+                    return Ok($"{user.UserName} registered successfully.");
+                }
             }
             catch (Exception ex)
             {
