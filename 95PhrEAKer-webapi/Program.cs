@@ -94,7 +94,7 @@ app.UseCors(option =>
           .AllowCredentials()
           .WithOrigins(
               "http://localhost:3000",
-              "https://95phreaker-nextjs-production.up.railway.app"
+              "https://95phreaker-social.up.railway.app"
           );
 });
 

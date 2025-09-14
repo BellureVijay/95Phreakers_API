@@ -95,11 +95,6 @@ namespace _95PhrEAKer_webapi.Controllers
                     return BadRequest(new { error = "Username already exists." });
                 }
 
-                if (_context.Users.Any(x => x.MobileNumber == user.MobileNumber))
-                {
-                    return BadRequest(new { error = "Mobile number already exists." });
-                }
-
 
                 var newUser = new Users
                 {
