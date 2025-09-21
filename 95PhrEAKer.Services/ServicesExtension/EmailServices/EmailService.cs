@@ -1,6 +1,4 @@
 ﻿using _95PhrEAKer.Services.IServices.EmailServices;
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;

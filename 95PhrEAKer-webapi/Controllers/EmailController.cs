@@ -1,5 +1,4 @@
 ﻿using _95PhrEAKer.Services.IServices.EmailServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _95PhrEAKer_webapi.Controllers

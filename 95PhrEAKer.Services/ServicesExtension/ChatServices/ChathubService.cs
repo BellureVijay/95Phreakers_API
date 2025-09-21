@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
 
 namespace _95PhrEAKer.Services.ServicesExtension.ChatServices
 {

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Xml.Serialization;
+﻿using Microsoft.AspNetCore.Mvc;
 using _95PhrEAKer.Domain.WebHook;
 using Microsoft.AspNetCore.Authorization;
 

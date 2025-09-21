@@ -1,10 +1,5 @@
 ﻿using _95PhrEAKer.Persistence.DbModals;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _95PhrEAKer.Persistence.context
 {

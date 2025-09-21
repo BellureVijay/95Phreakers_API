@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _95PhrEAKer.Domain.UserPost
+﻿namespace _95PhrEAKer.Domain.UserPost
 {
     public class Post
     {

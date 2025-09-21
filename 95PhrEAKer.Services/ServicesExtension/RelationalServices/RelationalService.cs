@@ -3,16 +3,9 @@ using _95PhrEAKer.Persistence.context;
 using _95PhrEAKer.Persistence.DbModals;
 using _95PhrEAKer.Services.IServices.RelationalService;
 using _95PhrEAKer.Services.ServicesExtension.ChatServices;
-using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Ocsp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace _95PhrEAKer.Services.ServicesExtension.RelationalServices
 {

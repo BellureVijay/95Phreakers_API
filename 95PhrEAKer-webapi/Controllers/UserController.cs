@@ -3,7 +3,6 @@ using _95PhrEAKer.Services.helpers;
 using _95PhrEAKer.Services.IServices.UserServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 
 namespace _95PhrEAKer_webapi.Controllers
 {

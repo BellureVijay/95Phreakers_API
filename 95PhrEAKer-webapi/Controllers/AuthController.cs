@@ -2,7 +2,6 @@
 using _95PhrEAKer.Persistence.context;
 using _95PhrEAKer.Persistence.DbModals;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

@@ -1,19 +1,12 @@
-using _95PhrEAKer.Domain.EmailSetting;
-using _95PhrEAKer.Domain.User;
 using _95PhrEAKer.Persistence.context;
 using _95PhrEAKer.Services.IServices.EmailServices;
-using _95PhrEAKer.Services.IServices.UserPostService;
-using _95PhrEAKer.Services.IServices.UserServices;
 using _95PhrEAKer.Services.ServicesExtension.ChatServices;
 using _95PhrEAKer.Services.ServicesExtension.EmailServices;
-using _95PhrEAKer.Services.ServicesExtension.UserPostService;
-using _95PhrEAKer.Services.ServicesExtension.UserServices;
 using _95PhrEAKer_webapi.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -87,6 +80,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseHttpsRedirection();
+
 app.UseCors(option =>
 {
     option.AllowAnyHeader()
@@ -97,9 +93,6 @@ app.UseCors(option =>
               "https://95phreaker-social.up.railway.app"
           );
 });
-
-app.UseHttpsRedirection();
-
 app.UseAuthentication();
 
 app.UseAuthorization();

@@ -1,4 +1,5 @@
-﻿using _95PhrEAKer.Domain.UserPost;
+﻿using _95PhrEAKer.Domain.User;
+using _95PhrEAKer.Domain.UserPost;
 using _95PhrEAKer.Persistence.DbModals;
 using _95PhrEAKer.Services.helpers;
 using _95PhrEAKer.Services.IServices.UserPostService;
@@ -52,5 +53,13 @@ namespace _95PhrEAKer_webapi.Controllers
             }
         }
 
+        [HttpGet("/getDashboardPosts")] 
+        [Authorize]
+        public List<DashBoardPost> DashBoardposts()
+        {
+            string email = GetEmailFromToken();
+            var item = _userPostService.GetDashboardPosts(email);
+            return item;
+        }
     }
 }

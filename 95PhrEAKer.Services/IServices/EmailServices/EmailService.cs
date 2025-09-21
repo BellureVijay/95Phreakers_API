@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _95PhrEAKer.Services.IServices.EmailServices
+﻿namespace _95PhrEAKer.Services.IServices.EmailServices
 {
     public interface IEmailService
     {
